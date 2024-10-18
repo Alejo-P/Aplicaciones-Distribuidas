@@ -1,0 +1,17 @@
+# IntelliJ IDEA
+/.idea/
+/*.iml
+
+# OS-specific files
+*.DS_Store
+Thumbs.db
+
+# Maven
+/target/
+
+# Gradle
+/build/
+
+# Otros
+/out/
+/.vscode/
