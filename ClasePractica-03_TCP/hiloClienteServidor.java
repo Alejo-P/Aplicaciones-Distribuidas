@@ -3,16 +3,23 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.util.Scanner;
+import java.util.HashMap;
 
 public class hiloClienteServidor extends Thread {
     // Atributo para el cliente
     private Socket cliente;
-    private String[] listaPreguntas = {
-        "¿Cuál es tu nombre?",
-        "¿Cuál es tu edad?",
-        "¿Cuál es tu color favorito?",
-        "¿Cuál es tu comida favorita?",
-        "¿Cuál es tu película favorita?"
+
+    // Diccionario de preguntas con sus respuestas
+    private HashMap<String, String> preguntasRespuestas = new HashMap<String, String>() {
+        {
+            put("¿Cuál es la capital de Ecuador?", "Quito");
+            put("¿Cuál es el río más largo del mundo?", "Amazonas");
+            put("¿Cuál es el océano más grande del mundo?", "Pacifico");
+            put("¿Proceso que realizan las plantas para obtener energía?", "Fotosintesis");
+            put("¿Cuál es el planeta más grande del sistema solar?", "Jupiter");
+            put("¿Cuál es el país más grande del mundo?", "Rusia");
+        }
     };
 
     public hiloClienteServidor(Socket cliente) {
@@ -23,7 +30,8 @@ public class hiloClienteServidor extends Thread {
     public void run() {
         try (
             BufferedReader bufferEntrada = new BufferedReader(new InputStreamReader(cliente.getInputStream()));
-            PrintWriter bufferSalida = new PrintWriter(cliente.getOutputStream(), true)
+            PrintWriter bufferSalida = new PrintWriter(cliente.getOutputStream(), true);
+            Scanner scanner = new Scanner(System.in)
         ) {
 
             // Mostrar la dirección IP y puerto del cliente
@@ -37,8 +45,12 @@ public class hiloClienteServidor extends Thread {
             // Enviar un mensaje inicial al cliente
             bufferSalida.println("Conexión establecida con el servidor.");
 
-            // Bucle para enviar preguntas al cliente y recibir respuestas
-            for (String pregunta : listaPreguntas) {
+            // Enviar mensajes al cliente
+            String mensajeEnviar = scanner.nextLine();
+            bufferSalida.println(mensajeEnviar);
+
+            // Iterar sobre las preguntas del HashMap
+            for (String pregunta : preguntasRespuestas.keySet()) {
                 bufferSalida.println(pregunta);  // Enviar pregunta al cliente
                 String respuestaCliente = bufferEntrada.readLine();  // Leer la respuesta del cliente
 
@@ -48,7 +60,18 @@ public class hiloClienteServidor extends Thread {
                     break;
                 }
 
-                System.out.println("Respuesta del cliente: " + respuestaCliente);
+                // Obtener la respuesta correcta del HashMap
+                String respuestaCorrecta = preguntasRespuestas.get(pregunta);
+
+                // Validar la respuesta
+                if (respuestaCliente.equalsIgnoreCase(respuestaCorrecta)) {
+                    bufferSalida.println("Correcto.");
+                    System.out.println("Respuesta correcta del cliente: " + respuestaCliente);
+                } else {
+                    bufferSalida.println("Incorrecto. La respuesta correcta es: " + respuestaCorrecta);
+                    System.out.println("Respuesta incorrecta del cliente: " + respuestaCliente);
+                }
+                Thread.sleep(3000);  // Esperar 1 segundo antes de enviar la siguiente pregunta
             }
 
             // Cerrar la conexión después de las preguntas
