@@ -4,7 +4,7 @@ import java.net.DatagramSocket;
 import java.net.DatagramPacket;
 
 public class servidor {
-    public static int puerto = 3000;
+    public static int puerto = 3005;
 
     public static void main(String[] args) {
         try (DatagramSocket socket = new DatagramSocket(puerto)) {

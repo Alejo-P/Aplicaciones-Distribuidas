@@ -15,8 +15,8 @@ public class cliente {
             
             // Dirección IP y puerto del servidor
             // InetAddress direccionIP = InetAddress.getByName("localhost");
-            InetAddress direccionIP = InetAddress.getByName("172.29.39.157");
-            int puertoServidor = 5000; // Asegúrate de que sea el mismo puerto que usa el servidor
+            InetAddress direccionIP = InetAddress.getByName("localhost");
+            int puertoServidor = 3005; // Asegúrate de que sea el mismo puerto que usa el servidor
             
             do {
                 System.out.print("Escribe un mensaje para el servidor\n> ");
