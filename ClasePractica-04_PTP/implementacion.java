@@ -12,11 +12,31 @@ public class implementacion extends UnicastRemoteObject implements interfaz {
     // Implementar los metodos de la interfaz
     @Override
     public String mensaje() throws RemoteException {
-        return "Mensaje desde el objeto remoto";
+        return "Mensaje soy marcelo el objeto remoto";
     }
 
+    
     @Override
-    public double operacion(double a, double b) throws RemoteException {
+    public double suma(double a, double b) throws RemoteException {
         return a + b;
+    }
+    
+    @Override
+    public double resta(double a, double b) throws RemoteException {
+        return a - b;
+    }
+    
+    @Override
+    public double multiplicacion(double a, double b) throws RemoteException {
+        return a * b;
+    }
+    
+    @Override
+    public double division(double a, double b) throws RemoteException {
+        if (b == 0) {
+            return 0;
+        }
+        
+        return a / b;
     }
 }

@@ -9,7 +9,7 @@ public class servidor {
             // Crear  y obtener registro RMI en un puerto especifico
             Registry registro = LocateRegistry.createRegistry(1099);
             // Registrar el objeto remoto en el registro (nombre, objeto)
-            registro.rebind("Clienteremoto", objetoREmoto);
+            registro.rebind("ClienteRemoto", objetoREmoto);
             
         } catch (Exception e) { // Capturar cualquier excepcion
             e.printStackTrace();
