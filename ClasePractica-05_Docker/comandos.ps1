@@ -19,4 +19,4 @@ docker stop my-phpmyadmin-app # Comando usado para detener el contenedor de phpm
 
 # ---------------------------- Construir imagen de Dockerfile ----------------------------
 docker build -t python_server . # Comando usado para construir la imagen de python_server
-docker run -d -p 8083:80 --name my-python-server python_server # Comando usado para ejecutar el contenedor de python_server
+docker run -d -p 8080:5000 --name my-python-server python_server # Comando usado para ejecutar el contenedor de python_server
