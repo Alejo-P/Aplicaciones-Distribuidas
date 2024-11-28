@@ -25,6 +25,9 @@ public class ClienteRMI {
             // Calcula el IMC
             double imc = obj.calculaIMC(peso, altura);
             
+            // Redondeas a 2 decimales
+            imc = Math.round(imc * 100.0) / 100.0;
+            
             // Muestra el IMC
             System.out.println("Su IMC es: " + imc);
         } catch (Exception e) {
