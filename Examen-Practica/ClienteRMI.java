@@ -20,15 +20,15 @@ public class ClienteRMI {
             // Menu
             int opcion = menu();
             while (opcion != 3) {
-                System.out.println("");
                 switch (opcion) {
                     case 1:
-                        calcularIMC();
-                        break;
+                    calcularIMC();
+                    break;
                     case 2:
-                        categoriaIMC();
-                        break;
+                    categoriaIMC();
+                    break;
                 }
+                System.out.println("");
                 opcion = menu();
             }
         } catch (Exception e) {
