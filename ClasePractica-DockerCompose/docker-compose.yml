@@ -1,0 +1,61 @@
+# Servicios que se van a crear en el contenedor
+services:
+  # Servidor de nginx
+  nginx:
+    image: nginx:latest # Imagen de nginx
+    container_name: nginx # Nombre del contenedor
+    ports: # Puertos que se van a exponer
+      - "8081:80"
+    
+  # Servidor de apache
+  apache:
+    image: httpd:latest # Imagen de apache
+    container_name: apache # Nombre del contenedor
+    ports: # Puertos que se van a exponer
+      - "8082:80"
+    
+  # Servidor de phpmyadmin
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin # Imagen de phpmyadmin
+    container_name: phpmyadmin # Nombre del contenedor
+    ports: # Puertos que se van a exponer
+      - "8083:80"
+    # environment: # Variables de entorno
+    #   PMA_HOST: mysql
+    #   PMA_PORT: 3306
+    #   MYSQL_ROOT_PASSWORD: root
+
+  # Servidor de python (Construir el contenedor a partie del Dockerfile)
+  pythonserv:
+    build: # Construir la imagen
+      context: ./Servidor # Ruta del Dockerfile
+      dockerfile: Dockerfile # Nombre del Dockerfile
+    
+    container_name: python # Nombre del contenedor
+    ports: # Puertos que se van a exponer
+      - "8084:5000"
+
+  pyplantilla:
+    build: # Construir la imagen
+      context: ./Servidor2 # Ruta del Dockerfile
+      dockerfile: Dockerfile # Nombre del Dockerfile
+    
+    container_name: plantilla # Nombre del contenedor
+    ports: # Puertos que se van a exponer
+      - "8085:5002"
+    
+    volumes: # Volumenes
+      # Ruta del host : Ruta del contenedor
+      - ./datos:/app
+  
+  pyplantilla2:
+    build: # Construir la imagen
+      context: ./Servidor2 # Ruta del Dockerfile
+      dockerfile: Dockerfile # Nombre del Dockerfile
+    
+    container_name: plantilla2 # Nombre del contenedor
+    ports: # Puertos que se van a exponer
+      - "8086:5004"
+
+volumes: # Volumenes
+  datos:
