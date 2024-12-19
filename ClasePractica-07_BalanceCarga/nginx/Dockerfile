@@ -5,4 +5,4 @@ FROM nginx:latest
 EXPOSE 80
 
 # Copiar el archivo de configuracion de nginx
-COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
+COPY /nginx.conf /etc/nginx/nginx.conf

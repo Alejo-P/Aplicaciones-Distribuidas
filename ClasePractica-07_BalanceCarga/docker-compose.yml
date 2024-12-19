@@ -1,0 +1,39 @@
+services:
+  # Servicios (Mismos nombres que en el archivo nginx.conf)
+  servidor1:
+    build: # <- Construir a partir de un archivo Dockerfile
+      context: ./Servidor1
+      dockerfile: Dockerfile
+    container_name: servidor1
+    ports:
+      - "8080:5000"
+  
+  servidor2:
+    build: # <- Construir a partir de un archivo Dockerfile
+      context: ./Servidor2
+      dockerfile: Dockerfile
+    container_name: servidor2
+    ports:
+      - "8081:5000"
+  
+  servidor3:
+    build: # <- Construir a partir de un archivo Dockerfile
+      context: ./Servidor3
+      dockerfile: Dockerfile
+    container_name: servidor3
+    ports:
+      - "8082:5000"
+
+  # Nginx
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    container_name: nginx
+    ports:
+      - "80:80"
+    depends_on:
+      - servidor1
+      - servidor2
+      - servidor3
+    

@@ -6,7 +6,15 @@ servidor = Flask(__name__)
 # Crear una ruta
 @servidor.route('/')
 def hola():
-    return "Hola desde servidor"
+    return "Hola desde servidor 3"
+
+@servidor.route('/saludo')
+def saludo():
+    return "Hola desde la ruta saludo"
+
+@servidor.route('/m/<mensaje>')
+def mensaje(mensaje):
+    return f"El mensaje es: {mensaje}"
 
 if __name__ == '__main__':
     servidor.run(
