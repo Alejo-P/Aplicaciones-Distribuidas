@@ -11,5 +11,5 @@ def hola():
 if __name__ == '__main__':
     servidor.run(
         host='0.0.0.0', # Especificar la IP para que sea visible desde cualquier lugar
-        port=5001 # Especificar el puerto
+        port=5000 # Especificar el puerto
     )
