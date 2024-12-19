@@ -8,7 +8,7 @@ COPY servidor3.py .
 RUN pip install Flask
 
 # Exponer el puerto 5000
-EXPOSE 5000
+EXPOSE 5002
 
 # Ejecutar el servidor
 CMD ["python", "servidor.py"]

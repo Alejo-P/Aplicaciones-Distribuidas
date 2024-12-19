@@ -13,6 +13,9 @@ services:
       # Variables de entorno para la configuración de MySQL
       MYSQL_ROOT_PASSWORD: root       # Contraseña del usuario root
       MYSQL_DATABASE: replica         # Nombre de la base de datos
+    # Volumenes
+    volumes:
+      - ./mysql-master:/var/lib/mysql
     # Comando (id 1 para el maestro)
     command: --server-id=1 --log-bin=mysql-bin --binlog-do-db=replica #--binlog-format=row --enforce-gtid-consistency=ON --gtid-mode=ON
     
@@ -38,9 +41,35 @@ services:
       MYSQL_MASTER_PASSWORD: root
     # Volumenes
     volumes:
-      - replica:/var/lib/mysql
+      - ./replica:/var/lib/mysql
     # Comando (id 2 para el esclavo)
     command: --server-id=2 --log-bin=mysql-bin --binlog-do-db=replica #--binlog-format=row --enforce-gtid-consistency=ON --gtid-mode=ON
+
+  # MySQL esclavo 2 | replica
+  mysql-slave2:
+    # Imagen de MySQL
+    image: mysql:8.0
+    # Nombre del contenedor
+    container_name: mysql-slave2
+    # Puertos del contenedor (host:container (para MySQL se usa el prueto 3306))
+    ports:
+      - "3308:3306"
+    # Variables de entorno
+    environment:
+      # Variables de entorno para la configuración de MySQL
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: replica
+      # Variables de entorno para la configuración de la replicación
+      MYSQL_MASTER_HOST: mysql-master
+      MYSQL_MASTER_PORT: 3306
+      MYSQL_MASTER_ROOT_PASSWORD: root
+      MYSQL_MASTER_USER: root
+      MYSQL_MASTER_PASSWORD: root
+    # Volumenes
+    volumes:
+      - ./replica2:/var/lib/mysql
+    # Comando (id 3 para el esclavo)
+    command: --server-id=3 --log-bin=mysql-bin --binlog-do-db=replica #--binlog-format=row --enforce-gtid-consistency=ON --gtid-mode=ON
 
   # PhpMyAdmin
   phpmyadmin:
@@ -54,12 +83,14 @@ services:
     # Variables de entorno
     environment:
       # Variables de entorno para la configuración de PhpMyAdmin
-      PMA_HOSTS: "mysql-master, mysql-slave" # Nombre del contenedor del maestro y esclavo
-      PMA_ARBITRARY: 1 # Habilitar la conexión a cualquier servidor
-      # PMA_PORT: 3306
-      # PMA_USER: root
-      # PMA_PASSWORD: root
+      PMA_HOSTS: "mysql-master, mysql-slave, mysql-slave2" # Lista de servidores MySQL (maestro y escalaos)
+      PMA_ARBITRARY: 1 # Habilitar la conexión a cualquier servidort
 
 # Volumenes
 volumes:
+  # Volumen para el maestro
+  mysql-master:
+  # Volumen para el esclavo
   replica:
+  # Volumen para el esclavo 2
+  replica2:

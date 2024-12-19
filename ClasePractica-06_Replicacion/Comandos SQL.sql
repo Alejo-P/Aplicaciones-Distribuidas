@@ -9,8 +9,16 @@ CHANGE MASTER TO
     MASTER_LOG_FILE='',
     MASTER_LOG_POS=0;
 
+-- Ejemplo
+CHANGE MASTER TO
+    MASTER_HOST='mysql-master',
+    MASTER_USER='root',
+    MASTER_PASSWORD='root',
+    MASTER_LOG_FILE='mysql-bin.000003',
+    MASTER_LOG_POS=530;
+
 -- Iniciar la replicación
 START SLAVE;
 
 -- Verificar el estado de la replicación
-SHOW SLAVE STATUS;
+SHOW SLAVE STATUS\G;
