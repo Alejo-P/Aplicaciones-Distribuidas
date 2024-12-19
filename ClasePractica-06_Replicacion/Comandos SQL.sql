@@ -21,4 +21,4 @@ CHANGE MASTER TO
 START SLAVE;
 
 -- Verificar el estado de la replicación
-SHOW SLAVE STATUS\G;
+SHOW SLAVE STATUS;

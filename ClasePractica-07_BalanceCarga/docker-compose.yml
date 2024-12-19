@@ -24,6 +24,22 @@ services:
     ports:
       - "8082:5000"
 
+  servidor4:
+    build: # <- Construir a partir de un archivo Dockerfile
+      context: ./Servidor4
+      dockerfile: Dockerfile
+    container_name: servidor4
+    ports:
+      - "8083:5000"
+
+  servidor5:
+    build: # <- Construir a partir de un archivo Dockerfile
+      context: ./Servidor5
+      dockerfile: Dockerfile
+    container_name: servidor5
+    ports:
+      - "8084:5000"
+
   # Nginx
   nginx:
     build:

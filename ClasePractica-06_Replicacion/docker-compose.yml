@@ -79,7 +79,7 @@ services:
     container_name: AdminPHP
     # Puertos del contenedor (host:container (para PhpMyAdmin se usa el prueto 8080))
     ports:
-      - "8080:80"
+      - "5000:80"
     # Variables de entorno
     environment:
       # Variables de entorno para la configuración de PhpMyAdmin
