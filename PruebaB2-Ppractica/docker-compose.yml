@@ -1,5 +1,5 @@
-version: '3.8'
 services:
+  # Nodo MySQL maestro1
   mysql-master1:
     image: mysql:8.0
     container_name: mysql_maestro1
@@ -13,8 +13,9 @@ services:
       - backend
     volumes:
       - ./mysql-data1:/var/lib/mysql        # Volumen para datos de MySQL
-      - ./mysql-config1:/etc/mysql/conf.d   # Volumen para configuración, si es necesario
+      - ./mysql-config1:/etc/mysql/conf.d   # Volumen para configuración
 
+  # Nodo MySQL maestro2
   mysql-master2:
     image: mysql:8.0
     container_name: mysql_maestro2
@@ -28,32 +29,35 @@ services:
       - backend
     volumes:
       - ./mysql-data2:/var/lib/mysql        # Volumen para datos de MySQL
-      - ./mysql-config2:/etc/mysql/conf.d   # Volumen para configuración, si es necesario
+      - ./mysql-config2:/etc/mysql/conf.d   # Volumen para configuración
 
-  phpmyadmin:
+  # Contenedor de phpMyAdmin para MySQL maestro1
+  phpmyadmin1:
     image: phpmyadmin:latest
-    container_name: phpmyadmin_m
+    container_name: phpmyadmin_m1
     ports:
       - 8081:80
     environment:
-      - PMA_HOSTS="nginxPrueba" # Apunta a Nginx como host
-      - PMA_PORT=80           # Usa el puerto del balanceador
-      - PMA_ARBITRARY=1
+      - PMA_HOST=mysql-master1
+      - PMA_USER=root
+      - PMA_PASSWORD=root
     networks:
       - backend
-  
+
+  # Contenedor de phpMyAdmin para MySQL maestro2
   phpmyadmin2:
     image: phpmyadmin:latest
     container_name: phpmyadmin_m2
     ports:
       - 8082:80
     environment:
-      - PMA_HOSTS="nginxPrueba" # Apunta a Nginx como host
-      - PMA_PORT=80           # Usa el puerto del balanceador
-      - PMA_ARBITRARY=1
+      - PMA_HOST=mysql-master2
+      - PMA_USER=root
+      - PMA_PASSWORD=root
     networks:
       - backend
-  
+
+  # Balanceador NGINX
   nginx:
     build:
       context: ./nginx
@@ -62,8 +66,8 @@ services:
     ports:
       - "80:80"
     depends_on:
-      - mysql-master1
-      - mysql-master2
+      - phpmyadmin1
+      - phpmyadmin2
     networks:
       - backend
 
@@ -72,7 +76,7 @@ networks:
     driver: bridge
 
 volumes:
-  mysql-data1:    # Volumen para mysql-master1
-  mysql-data2:    # Volumen para mysql-master2
-  mysql-config1:  # Volumen para configuraciones de mysql-master1 (si lo necesitas)
-  mysql-config2:  # Volumen para configuraciones de mysql-master2 (si lo necesitas)
+  mysql-data1:
+  mysql-data2:
+  mysql-config1:
+  mysql-config2:
