@@ -34,7 +34,7 @@ services:
     image: phpmyadmin:latest
     container_name: phpmyadmin_m2
     ports:
-      - 8081:81
+      - 8082:80
     environment:
       - PMA_HOSTS="mysql-master1,mysql-master2"
       - PMA_ARBITRARY=1
