@@ -1,0 +1,51 @@
+services:
+  python:
+    container_name: python_app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    environment:
+      - MYSQL_HOST=mysql
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=1234
+      - MYSQL_DB=registro
+      - MYSQL_PORT=3306
+    depends_on:
+      - mysql
+
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=1234
+      - MYSQL_DATABASE=registro
+    volumes:
+      - mysql_data1:/var/lib/mysql # Volumen para persistir los datos de la base de datos
+
+  php:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: php
+    ports:
+      - "80:80"
+    environment:
+      - PMA_HOST=mysql
+      - PMA_USER=root
+      - PMA_PASSWORD=1234
+      - PMA_ARBITRARY=1
+
+  locust:
+    image: locustio/locust
+    container_name: locust
+    ports:
+      - "8089:8089"
+    volumes:
+      - ./locust:/mnt/locust
+    command: -f /mnt/locust/locustfile.py # o ["-f", "/mnt/locust/locustfile.py"]
+
+volumes:
+  mysql_data1:
+    driver: local

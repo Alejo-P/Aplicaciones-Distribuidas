@@ -1,0 +1,65 @@
+/* Estilo para el cuerpo */
+body {
+  background-color: #f3f4f6; /* Gris claro */
+  font-family: Arial, sans-serif;
+  padding: 10px;
+}
+
+/* Estilo para los mensajes de alerta */
+.bg-green-200 {
+  background-color: #d1fae5; /* Verde claro */
+}
+.text-green-800 {
+  color: #065f46; /* Verde oscuro */
+}
+.text-red-500 {
+  color: #dc2626; /* Rojo para errores */
+}
+
+/* Campos del formulario */
+input,
+select {
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+input:focus,
+select:focus {
+  border-color: #3b82f6; /* Azul de enfoque */
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
+}
+
+/* Botón de guardar */
+button {
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+button:hover {
+  background-color: #2563eb; /* Azul más oscuro */
+  transform: translateY(-2px);
+}
+
+/* Validación de errores */
+.text-red-500 {
+  font-size: 0.875rem; /* Texto pequeño */
+  margin-top: 0.25rem;
+}
+
+/* Personalización de etiquetas */
+label {
+  font-size: 1rem;
+  color: #111827; /* Gris oscuro */
+}
+
+/* Espaciado y bordes del formulario */
+form {
+  background-color: #111827; /* Fondo negro */
+  border-color: #dc2626; /* Rojo oscuro */
+  padding: 20px;
+  border-radius: 8px;
+}
+
+/* Ajustes para el contenedor principal */
+.w-full {
+  max-width: 900px;
+  margin: auto;
+}
