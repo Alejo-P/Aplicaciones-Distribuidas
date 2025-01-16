@@ -23,6 +23,8 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=1234
       - MYSQL_DATABASE=aplicacion
+    volumes:
+      - mysql_data:/var/lib/mysql # Volumen para persistir los datos de la base de datos
 
   aplicacion_php:
     image: phpmyadmin/phpmyadmin:latest
@@ -34,3 +36,16 @@ services:
       - PMA_USER=root
       - PMA_PASSWORD=1234
       - PMA_ARBITRARY=1
+
+  locust:
+    image: locustio/locust
+    container_name: locust
+    ports:
+      - "8089:8089"
+    volumes:
+      - ./locust:/mnt/locust
+    command: -f /mnt/locust/locustfile.py # o ["-f", "/mnt/locust/locustfile.py"]
+
+volumes:
+  mysql_data:
+    driver: local
