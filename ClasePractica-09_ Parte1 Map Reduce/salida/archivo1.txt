@@ -1,0 +1,11 @@
+"archivo."	1
+"de"	1
+"archivo"	1
+"un"	1
+"repetidas."	1
+"palabras"	1
+"Este"	1
+"Contiene"	1
+"Ejemplo"	1
+"ejemplo."	1
+"es"	1

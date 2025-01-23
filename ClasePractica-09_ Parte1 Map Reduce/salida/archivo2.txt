@@ -1,0 +1,10 @@
+"palabras"	1
+"para"	1
+"archivo"	2
+"y"	1
+"tiene"	1
+"\u00fanicas"	1
+"Este"	1
+"Otro"	1
+"probar."	1
+"repetidas."	1

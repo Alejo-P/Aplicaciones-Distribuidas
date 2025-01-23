@@ -1,0 +1,39 @@
+services:
+  nodo1:
+    build: 
+      dockerfile: Dockerfile
+    container_name: nodo1
+    volumes:
+      - ./entrada:/app/entrada
+      - ./salida:/app/salida
+    command: sh -c "python mapReduce.py /app/entrada/archivo1.txt > /app/salida/archivo1.txt"
+  
+  nodo2:
+    build: 
+      dockerfile: Dockerfile
+    container_name: nodo2
+    volumes:
+      - ./entrada:/app/entrada
+      - ./salida:/app/salida
+    command: sh -c "python mapReduce.py /app/entrada/archivo2.txt > /app/salida/archivo2.txt"
+
+  nodo3:
+    build: 
+      dockerfile: Dockerfile
+    container_name: nodo3
+    volumes:
+      - ./entrada:/app/entrada
+      - ./salida:/app/salida
+    command: sh -c "python mapReduce.py /app/entrada/archivo3.txt > /app/salida/archivo3.txt"
+
+  nodo4:
+    build: 
+      dockerfile: Dockerfile
+    container_name: nodo4
+    volumes:
+      - ./entrada:/app/entrada
+    command: sh -c "python mapReduce.py /app/entrada"
+
+volumes:
+  entrada:
+  salida:
